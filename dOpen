@@ -1,0 +1,39 @@
+#!/bin/bash
+
+dir=""
+DMENU='rofi -dmenu -i'
+
+file=$(find ~ $dir . \
+	\( -name .gnupg \
+	-o -name .waterfox \
+	-o -name .mozilla \
+	-o -name tor-browser_en-US \
+	-o -name .var \
+	-o -name .cache \
+	-o -name .vscode \
+	-o -name undodir \
+	-o -name .local \
+	-o -name .pia_manager \
+	-o -name .thumbnails \
+	-o -name .icons \
+	-o -name icons \
+	-o -name github \
+	-o -name temp \
+	-o -name tmp \
+	-o -name "Crash Reports" \
+	-o -name R \
+	-o -name vmware \
+	-o -name Games \
+	-o -name Unused \
+	-o -name "Backup" \
+	-o -name share \
+	-o -name "*.jpg" \
+	-o -name "*.png" \
+	-o -name "*.gif" \) \
+	-prune -o -print | $DMENU -l 20 -p "What to open?")
+
+if [[ $file != "" ]];then
+	xdg-open "$file"
+else
+	exit 1
+fi
