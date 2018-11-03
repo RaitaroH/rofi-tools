@@ -2,6 +2,8 @@
 
 The rofi/dmenu scripts I use. Edit is required for personal use because I removed my personal folders and alike.
 
+Everything is named `d*` because it used to use dmenu instead. If you have dmenu just change a var in the script. Pretty easy.
+
 ## dCheat
 
 Requires `pip install cheat`. See any cheats you have in vim.
