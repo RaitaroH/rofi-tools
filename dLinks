@@ -1,0 +1,39 @@
+#!/bin/bash
+link=$(xclip -selection clipboard -o)
+DMENU='rofi -dmenu -i -theme dmenu'
+
+chosen=$(echo -e "stream\nplaylist-stream\nplaylist-download\nvideo\naudio\nbdl\ngallery" | $DMENU -p "What action?")
+
+case "$chosen" in
+	stream)
+		vlc $(youtube-dl -g $link) --no-fullscreen --video-on-top
+		exit 1
+	;;
+	playlist-stream)
+		play=~/playlist.m3u
+		# play=/tmp/playlist.m3u
+		youtube-dl -g $link >> $play
+		konsole --new-tab -e "vlc $play"
+		exit 1
+	;;
+	playlist-download)
+		konsole --new-tab -e "youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --yes-playlist -o '' --download-archive '' $link"
+		exit 1
+	;;
+	video)
+		konsole --new-tab -e "youtube-dl $link"
+		exit 1
+	;;
+	audio)
+		konsole --new-tab -e "youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 $link"
+		exit 1
+	;;
+	bdl)
+		konsole --new-tab -e "bandcamp-dl $link"
+		exit 1
+	;;
+	gallery)
+		konsole --new-tab -e "gallery-dl $link"
+		exit 1
+	;;
+esac
