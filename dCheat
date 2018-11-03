@@ -1,0 +1,9 @@
+#!/bin/sh
+# A dmenu binary promt script
+
+DMENU='rofi -dmenu -theme dmenu'
+file="$(cheat -l | cut -d' ' -f1 | $DMENU -p "What cheat?")"
+cheat $file >> /tmp/$file.txt
+xdg-open /tmp/$file.txt
+sleep 1s
+rm /tmp/$file.txt
